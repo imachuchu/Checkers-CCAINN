@@ -16,6 +16,7 @@ class neuralNetwork(object):
 	weights = []
 
 	def evaluateLayer(self, previous, currentLayer): #evaluates one layer, and calls itself on the next
+		result = []
 		for node in self.weights[currentLayer]:
 			result.append(reduce(lambda x,y: x+y, map(lambda x,y: x*y, node, previous)))
 		if currentLayer+1 == length(weights): # If we are on the last layer

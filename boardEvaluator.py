@@ -41,12 +41,12 @@ class neuralNetwork(object):
 		return 0
 
 
-	def randomNetwork(self, layersInfo):
+	def randomNetwork(self, layersInfo): #Generates a random network, given an array of node distribution
 		self.weights.append([])
 		for x in range(layersInfo[0]):
 			self.weights[0].append(random.uniform(-1,1))
 		for layer in layersInfo[1:]:
-			array = map(lambda x: random.uniform(-1,1), range(layer))
+			array = map(lambda x: map(lambda x: random.uniform(-1,1), range(len(self.weights[-1]))), range(layer))
 			self.weights.append(array)
 
 if __name__ == "__main__":

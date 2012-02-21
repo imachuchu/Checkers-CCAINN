@@ -45,10 +45,9 @@ class neuralNetwork(object):
 		self.weights.append([])
 		for x in range(layersInfo[0]):
 			self.weights[0].append(random.uniform(-1,1))
-		count = 0
 		for layer in layersInfo[1:]:
-			map(lambda x: random.uniform(-1,1), range(len(self.weights[count])))
-			++count
+			array = map(lambda x: random.uniform(-1,1), range(layer))
+			self.weights.append(array)
 
 if __name__ == "__main__":
 	pass

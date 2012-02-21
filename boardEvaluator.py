@@ -10,24 +10,22 @@ class board():
 		for x in xrange(32):
 			self.location.append(random.choice(choices))
 
-
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork(object):
 	weights = []
 
-	def evaluateLayer(self, previous, currentLayer): #evaluates one layer, and calls itself on the next
-		result = []
-		for node in self.weights[currentLayer]:
-			result.append(reduce(lambda x,y: x+y, map(lambda x,y: x*y, node, previous)))
-		if currentLayer+1 == length(weights): # If we are on the last layer
-			return result[0] # The last layer only has one node
-		else:
-			return self.evaluateLayer(result, currentLayer+1) # Not tail recursive, which stinks, but we shouldn't have too many layers
-
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
-		result = []
-		result = map(lambda x,y: x*self.getValue(y), self.weights[0], board.location)
-		return self.evaluateLayer(result, 1)
+		previous = []
+		counter = 0
+		previous = map(lambda x,y: x*self.getValue(y), self.weights[0], board.location)
+		for layer in self.weights[1:]:
+			current = []
+			for node in layer:
+				help(previous)
+				current.append(sum(map(lambda x,y: x*y, node, previous)))
+				++counter
+			previous = current
+		return previous
 
 	def getValue(self, piece): # Simple call that returns the value of each piece, based on our color. NOTE: currently we hard code red
 		if piece == 'r':
@@ -45,7 +43,6 @@ class neuralNetwork(object):
 		results = []
 		for layer in layersInfo:
 			self.weights.append( map(lambda x: random.uniform(-1,1), range(layer)) )
-
 
 if __name__ == "__main__":
 	pass

@@ -21,9 +21,11 @@ class neuralNetwork(object):
 		for layer in self.weights[1:]:
 			current = []
 			for node in layer:
-				help(previous)
-				current.append(sum(map(lambda x,y: x*y, node, previous)))
-				++counter
+				total = 0
+				for num in len(node):
+					total += node[num] * previous[num]
+				current.append(total)
+				#current.append(sum(map(lambda x,y: x*y, node, previous)))
 			previous = current
 		return previous
 
@@ -40,9 +42,13 @@ class neuralNetwork(object):
 
 
 	def randomNetwork(self, layersInfo):
-		results = []
-		for layer in layersInfo:
-			self.weights.append( map(lambda x: random.uniform(-1,1), range(layer)) )
+		self.weights.append([])
+		for x in range(layersInfo[0]):
+			self.weights[0].append(random.uniform(-1,1))
+		count = 0
+		for layer in layersInfo[1:]:
+			map(lambda x: random.uniform(-1,1), range(len(self.weights[count])))
+			++count
 
 if __name__ == "__main__":
 	pass

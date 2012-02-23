@@ -1,7 +1,6 @@
 # Function that evaluates a given board and returns a value based on the configuration of the neural network
 import random #For random generation functions
 
-
 class board():
 	location = [] # There are 32 spots on a checker board, each spot is either e, r, b, R, B (empty, red, black, red king, black king)
 
@@ -15,29 +14,29 @@ class neuralNetwork(object):
 	weights = []
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
-		previous = []
-		counter = 0
+		# First the input nodes
 		previous = map(lambda x,y: x*self.getValue(y), self.weights[0], board.location)
+		# Next the rest of the nodes
+		output = previous
+		previousLayer = output.__iter__()
+		resultAr = []
 		for layer in self.weights[1:]:
-			current = []
 			for node in layer:
-				total = 0
-				for num in len(node):
-					total += node[num] * previous[num]
-				current.append(total)
-				#current.append(sum(map(lambda x,y: x*y, node, previous)))
-			previous = current
-		return previous
+				zipAr = zip(node, previousLayer)
+				resultAr.append(sum(sum(zipAr)))
+			output.append(resultAr)
+			resultAr = []
+			previousLayer.next()
 
 	def getValue(self, piece): # Simple call that returns the value of each piece, based on our color. NOTE: currently we hard code red
 		if piece == 'r':
-			return 1
+			return float(1)
 		if piece == 'b':
-			return -1
+			return float(-1)
 		if piece == 'R':
-			return 1.4
+			return float(1.4)
 		if piece == 'B':
-			return -1.4
+			return float(-1.4)
 		return 0
 
 

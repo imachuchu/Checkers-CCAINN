@@ -1,6 +1,7 @@
 # Function that evaluates a given board and returns a value based on the configuration of the neural network
 import random #For random generation functions
 
+# A representation of a checker board
 class board():
 	location = [] # There are 32 spots on a checker board, each spot is either e, r, b, R, B (empty, red, black, red king, black king)
 
@@ -17,6 +18,8 @@ class neuralNetwork(object):
 		# First the input nodes
 		previous = map(lambda x,y: x*self.getValue(y), self.weights[0], board.location)
 		# Next the rest of the nodes
+
+# This is the complex part, we need to step through each node in each layer and multiply each of it's weights by the nodes results in the previous layer
 		output = previous
 		previousLayer = output.__iter__()
 		resultAr = []
@@ -40,6 +43,7 @@ class neuralNetwork(object):
 		return 0
 
 
+# Example usage: randomNetwork([32,40,10,1])
 	def randomNetwork(self, layersInfo): #Generates a random network, given an array of node distribution
 		self.weights.append([])
 		for x in range(layersInfo[0]):

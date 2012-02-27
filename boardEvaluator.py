@@ -1,5 +1,6 @@
 # Function that evaluates a given board and returns a value based on the configuration of the neural network
 import random #For random generation functions
+import itertools #For sweet fast list functions
 
 # A representation of a checker board
 class board():
@@ -10,10 +11,18 @@ class board():
 		for x in xrange(32):
 			self.location.append(random.choice(choices))
 
-class neuralNode():
+class neuralNode(): # A node consists of some weights by which it listens to the previous layer
 	weights = []
-	def evaluateNode():
-		
+
+	def randomNode(self, number): #Generates a node with random weights to a number of previous nodes
+		for link in range(number):
+			self.weight.append(random.uniform(-1,1))
+
+	def evaluateNode(self, layer): #Returns how much this node likes the input layer
+		for piece in itertools.izip(self.weights, layer):
+			likeness += piece[0] + piece[1]
+		return likeness
+
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork(object):

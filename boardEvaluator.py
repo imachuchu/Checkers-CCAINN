@@ -10,6 +10,11 @@ class board():
 		for x in xrange(32):
 			self.location.append(random.choice(choices))
 
+class neuralNode():
+	weights = []
+	def evaluateNode():
+		
+
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork(object):
 	weights = []

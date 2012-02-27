@@ -14,9 +14,10 @@ class board():
 class neuralNode(): # A node consists of some weights by which it listens to the previous layer
 	weights = []
 
-	def randomNode(self, number): #Generates a node with random weights to a number of previous nodes
+	def __init__(self, number): #Generates a node with random weights to a number of previous nodes
+
 		for link in range(number):
-			self.weight.append(random.uniform(-1,1))
+			self.weights.append(random.uniform(-1,1))
 
 	def evaluateNode(self, layer): #Returns how much this node likes the input layer
 		for piece in itertools.izip(self.weights, layer):
@@ -26,7 +27,7 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork(object):
-	weights = []
+	neuralNodes = []
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
 		# First the input nodes
@@ -59,12 +60,20 @@ class neuralNetwork(object):
 
 # Example usage: randomNetwork([32,40,10,1])
 	def randomNetwork(self, layersInfo): #Generates a random network, given an array of node distribution
-		self.weights.append([])
+# For the first group
+		self.neuralNodes.append([])
 		for x in range(layersInfo[0]):
-			self.weights[0].append(random.uniform(-1,1))
-		for layer in layersInfo[1:]:
-			array = map(lambda x: map(lambda x: random.uniform(-1,1), range(len(self.weights[-1]))), range(layer))
-			self.weights.append(array)
+			self.neuralNodes[0].append(neuralNode(1))
+
+# Now for the rest
+		def addLayer(curLayer, prevLayer):
+			result = []
+			for node in range(curLayer):
+				result.append(neuralNode(prevLayer))
+			return result
+
+		for layer in itertools.starmap(addLayer, zip(layersInfo[1:], layersInfo)):
+			self.neuralNodes.append(layer)
 
 if __name__ == "__main__":
 	pass

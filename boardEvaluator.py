@@ -30,10 +30,13 @@ class neuralNetwork(object):
 	neuralNodes = []
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
+		result = []
+		result.append()
 		# First the input nodes
-		previous = map(lambda x,y: x*self.getValue(y), self.weights[0], board.location)
-		# Next the rest of the nodes
+		for node in neuralNodes[0]:
+			result[0].append(node.evaluateNode(board)
 
+		# Next the rest of the nodes
 # This is the complex part, we need to step through each node in each layer and multiply each of it's weights by the nodes results in the previous layer
 		output = previous
 		previousLayer = output.__iter__()

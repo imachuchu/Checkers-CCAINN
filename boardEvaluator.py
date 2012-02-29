@@ -19,7 +19,7 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 		for link in range(number):
 			self.weights.append(random.uniform(-1,1))
 
-	def evaluateNode(self, layer): #Returns how much this node likes the input layer
+	def evaluateLayer(self, layer): #Returns how much this node likes the input layer
 		for piece in itertools.izip(self.weights, layer):
 			likeness += piece[0] + piece[1]
 		return likeness
@@ -33,21 +33,16 @@ class neuralNetwork(object):
 		result = []
 		result.append()
 		# First the input nodes
-		for node in neuralNodes[0]:
-			result[0].append(node.evaluateNode(board)
+		for node, location in zip(neuralNodes[0], board):
+			result[0].append(node.weights[0]*location)
 
 		# Next the rest of the nodes
 # This is the complex part, we need to step through each node in each layer and multiply each of it's weights by the nodes results in the previous layer
-		output = previous
-		previousLayer = output.__iter__()
-		resultAr = []
-		for layer in self.weights[1:]:
-			for node in layer:
-				zipAr = zip(node, previousLayer)
-				resultAr.append(sum(sum(zipAr)))
-			output.append(resultAr)
-			resultAr = []
-			previousLayer.next()
+		for x,y in zip(self.neuralNetwork[1:], range(neuralNodes)): # Each layer
+			result.append()
+			for node in x: # Each node
+				result[y+1].append(evaluateLayer(result[y])
+		return results[-1][0] #We assume that the last element of the array only has one value
 
 	def getValue(self, piece): # Simple call that returns the value of each piece, based on our color. NOTE: currently we hard code red
 		if piece == 'r':

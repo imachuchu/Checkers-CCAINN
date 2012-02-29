@@ -31,14 +31,14 @@ class neuralNetwork(object):
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
 		result = []
-		result.append()
+		result.append([])
 		# First the input nodes
-		for node, location in zip(neuralNodes[0], board):
+		for node, location in zip(self.neuralNodes[0], board):
 			result[0].append(node.weights[0]*location)
 
 		# Next the rest of the nodes
 # This is the complex part, we need to step through each node in each layer and multiply each of it's weights by the nodes results in the previous layer
-		for x,y in zip(self.neuralNetwork[1:], range(neuralNodes)): # Each layer
+		for x,y in zip(self.neuralNetwork[1:], range(self.neuralNodes)): # Each layer
 			result.append()
 			for node in x: # Each node
 				result[y+1].append(evaluateLayer(result[y]))

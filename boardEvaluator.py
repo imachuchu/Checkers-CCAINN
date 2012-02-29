@@ -41,8 +41,9 @@ class neuralNetwork(object):
 		for x,y in zip(self.neuralNetwork[1:], range(neuralNodes)): # Each layer
 			result.append()
 			for node in x: # Each node
-				result[y+1].append(evaluateLayer(result[y])
-		return results[-1][0] #We assume that the last element of the array only has one value
+				result[y+1].append(evaluateLayer(result[y]))
+		return returnResult = [x for x in result[-1:]][0]
+		#return returnResult #We assume that the last element of the array only has one value
 
 	def getValue(self, piece): # Simple call that returns the value of each piece, based on our color. NOTE: currently we hard code red
 		if piece == 'r':

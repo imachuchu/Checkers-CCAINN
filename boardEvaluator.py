@@ -9,7 +9,6 @@ class board():
 	def randomBoard(self): #Generates a random board, NOTE: Will not be a valid board, just one with random stuff on it
 		choices = ['e', 'r', 'b', 'R', 'B']
 		for x in xrange(32):
-			print("here")
 			self.location.append(random.choice(choices))
 
 class neuralNode(): # A node consists of some weights by which it listens to the previous layer
@@ -21,6 +20,7 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 			self.weights.append(random.uniform(-1,1))
 
 	def evaluateLayer(self, layer): #Returns how much this node likes the input layer
+		likeness = 0
 		for piece in itertools.izip(self.weights, layer):
 			likeness += piece[0] + piece[1]
 		return likeness
@@ -35,14 +35,14 @@ class neuralNetwork():
 		result.append([])
 		# First the input nodes
 		for node, location in zip(self.neuralNodes[0], board.location):
-			result[0].append(node.weights[0]*location)
+			result[0].append(node.weights[0]*self.getValue(location))
 
 		# Next the rest of the nodes
 # This is the complex part, we need to step through each node in each layer and multiply each of it's weights by the nodes results in the previous layer
-		for x,y in zip(self.neuralNetwork[1:], range(self.neuralNodes)): # Each layer
-			result.append()
+		for x,y in zip(self.neuralNodes[1:], range(len(self.neuralNodes))): # Each layer
+			result.append([])
 			for node in x: # Each node
-				result[y+1].append(evaluateLayer(result[y]))
+				result[y+1].append(node.evaluateLayer(result[y]))
 		return [x for x in result[-1:]][0]
 		#return returnResult #We assume that the last element of the array only has one value
 

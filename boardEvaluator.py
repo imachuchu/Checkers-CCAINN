@@ -9,13 +9,14 @@ class board():
 	def randomBoard(self): #Generates a random board, NOTE: Will not be a valid board, just one with random stuff on it
 		choices = ['e', 'r', 'b', 'R', 'B']
 		for x in xrange(32):
+			print("here")
 			self.location.append(random.choice(choices))
 
 class neuralNode(): # A node consists of some weights by which it listens to the previous layer
 	weights = []
 
 	def __init__(self, number): #Generates a node with random weights to a number of previous nodes
-
+		self.weights = []
 		for link in range(number):
 			self.weights.append(random.uniform(-1,1))
 
@@ -26,14 +27,14 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
-class neuralNetwork(object):
+class neuralNetwork():
 	neuralNodes = []
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
 		result = []
 		result.append([])
 		# First the input nodes
-		for node, location in zip(self.neuralNodes[0], board):
+		for node, location in zip(self.neuralNodes[0], board.location):
 			result[0].append(node.weights[0]*location)
 
 		# Next the rest of the nodes

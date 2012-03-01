@@ -69,18 +69,14 @@ class neuralNetwork():
 		return 0
 
 	def evolveNetworks(self, number): #Function to return evolved networks, returns an array of number of these networks
-		output = []
-		for network in range(number):
-			oNetwork = []
+		output = [neuralNetwork for x in range(number)]
+		for network in output:
 			for layer in self.neuralNodes:
 				oLayer = []
 				for node in layer:
-					oLayer.append(neuralNode.evolveNode)
-				oNetwork.append(oLayer)
-			output.append(oNetwork)
-			return output
-
-
+					oLayer.append(node.evolveNode())
+				network.neuralNodes.append(oLayer)
+		return output
 
 
 # Example usage: randomNetwork([32,40,10,1])

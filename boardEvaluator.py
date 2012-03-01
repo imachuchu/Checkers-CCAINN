@@ -71,11 +71,12 @@ class neuralNetwork():
 	def evolveNetworks(self, number): #Function to return evolved networks, returns an array of number of these networks
 		output = [neuralNetwork for x in range(number)]
 		for network in output:
-			for layer in self.neuralNodes:
-				oLayer = []
+			for layer, count in zip(self.neuralNodes, range(len(self.neuralNodes))):
+				network.neuralNodes.append([])
 				for node in layer:
-					oLayer.append(node.evolveNode())
-				network.neuralNodes.append(oLayer)
+					network.neuralNodes[count].append(5) #Very fishy, throws an error about int not having evolveNode
+					node.evolveNode()
+					print(count)
 		return output
 
 

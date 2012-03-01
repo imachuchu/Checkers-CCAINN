@@ -1,6 +1,9 @@
 # Function that evaluates a given board and returns a value based on the configuration of the neural network
 import random #For random generation functions
 import itertools #For sweet fast list functions
+import math #For the e constant
+
+SCALINGFACTOR = .5 #Used by the evolver to modify the resultant weight distribution
 
 # A representation of a checker board
 class board():
@@ -14,8 +17,11 @@ class board():
 class neuralNode(): # A node consists of some weights by which it listens to the previous layer
 	weights = []
 
-	def __init__(self, number): #Generates a node with random weights to a number of previous nodes
+	def __init__(self,number=1, inweights=0): #Generates a node with random weights to a number of previous nodes
 		self.weights = []
+		if inweights != 0:
+			self.weights = inweights 
+			return
 		for link in range(number):
 			self.weights.append(random.uniform(-1,1))
 
@@ -25,6 +31,11 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 			likeness += piece[0] + piece[1]
 		return likeness
 
+	def evolveNode(self): # Returns a child note evolved off of this one
+		futureWeights = []
+		for node in self.weights:
+			futureWeights.append(1/(1+math.pow(math.e,(-SCALINGFACTOR*node))))
+		return neuralNode(inweights=futureWeights)
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork():
@@ -63,13 +74,13 @@ class neuralNetwork():
 # For the first group
 		self.neuralNodes.append([])
 		for x in range(layersInfo[0]):
-			self.neuralNodes[0].append(neuralNode(1))
+			self.neuralNodes[0].append(neuralNode(number=1))
 
 # Now for the rest
 		def addLayer(curLayer, prevLayer):
 			result = []
 			for node in range(curLayer):
-				result.append(neuralNode(prevLayer))
+				result.append(neuralNode(number=prevLayer))
 			return result
 
 		for layer in itertools.starmap(addLayer, zip(layersInfo[1:], layersInfo)):

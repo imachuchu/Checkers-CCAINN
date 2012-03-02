@@ -7,9 +7,9 @@ SCALINGFACTOR = .5 #Used by the evolver to modify the resultant weight distribut
 
 # A representation of a checker board
 class board():
-	location = [] # There are 32 spots on a checker board, each spot is either e, r, b, R, B (empty, red, black, red king, black king)
 
 	def randomBoard(self): #Generates a random board, NOTE: Will not be a valid board, just one with random stuff on it
+		self.location = []
 		choices = ['e', 'r', 'b', 'R', 'B']
 		for x in xrange(32):
 			self.location.append(random.choice(choices))
@@ -68,6 +68,7 @@ class neuralNetwork():
 			return float(-1.4)
 		return 0
 
+# The problem lies in here
 	def evolveNetworks(self, number): #Function to return evolved networks, returns an array of number of these networks
 		output = [neuralNetwork for x in range(number)]
 		for network in output:
@@ -75,8 +76,8 @@ class neuralNetwork():
 				network.neuralNodes.append([])
 				for node in layer:
 					network.neuralNodes[count].append(5) #Very fishy, throws an error about int not having evolveNode
+					#Normally this \/ code would replace the 5 in /\
 					node.evolveNode()
-					print(count)
 		return output
 
 
@@ -97,5 +98,6 @@ class neuralNetwork():
 		for layer in itertools.starmap(addLayer, zip(layersInfo[1:], layersInfo)):
 			self.neuralNodes.append(layer)
 
+# For running from the command line, eventually
 if __name__ == "__main__":
 	pass

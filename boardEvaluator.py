@@ -15,9 +15,9 @@ class board():
 			self.location.append(random.choice(choices))
 
 class neuralNode(): # A node consists of some weights by which it listens to the previous layer
-	weights = []
 
 	def __init__(self,number=1, inweights=0): #Generates a node with random weights to a number of previous nodes
+		weights = []
 		self.weights = []
 		if inweights != 0:
 			self.weights = inweights 
@@ -39,7 +39,9 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer
 class neuralNetwork():
-	neuralNodes = []
+
+	def __init__(self):
+		self.neuralNodes = []
 
 	def evaluateBoard(self, board): #Evaluates a board and returns how much the neural network likes it
 		result = []
@@ -68,16 +70,13 @@ class neuralNetwork():
 			return float(-1.4)
 		return 0
 
-# The problem lies in here
 	def evolveNetworks(self, number): #Function to return evolved networks, returns an array of number of these networks
-		output = [neuralNetwork for x in range(number)]
+		output = [neuralNetwork() for x in range(number)]
 		for network in output:
 			for layer, count in zip(self.neuralNodes, range(len(self.neuralNodes))):
 				network.neuralNodes.append([])
 				for node in layer:
-					network.neuralNodes[count].append(5) #Very fishy, throws an error about int not having evolveNode
-					#Normally this \/ code would replace the 5 in /\
-					node.evolveNode()
+					network.neuralNodes[count].append(node.evolveNode())
 		return output
 
 

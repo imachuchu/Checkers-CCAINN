@@ -4,6 +4,8 @@ import itertools #For sweet fast list functions
 import math #For the e constant
 
 SCALINGFACTOR = .5 #Used by the evolver to modify the resultant weight distribution
+EVOLVERSTANDARDDEVIATION = 1
+SQRTEVOLVERSTANDARDDEVIATION = math.sqrt(EVOLVERSTANDARDDEVIATION)
 
 # A representation of a checker board
 class board():
@@ -34,7 +36,8 @@ class neuralNode(): # A node consists of some weights by which it listens to the
 	def evolveNode(self): # Returns a child note evolved off of this one
 		futureWeights = []
 		for node in self.weights:
-			futureWeights.append(1/(1+math.pow(math.e,(-SCALINGFACTOR*node))))
+			futureWeights.append(node+random.gauss(0,.2)) #May need to find a better standard deviation for this/or scale it
+			#futureWeights.append(1/(1+math.pow(math.e,(-SCALINGFACTOR*node))))
 		return neuralNode(inweights=futureWeights)
 
 # Contains a neural network, which consists of multiple layers, each layer consists of multiple nodes each one connected to each node from the previous layer

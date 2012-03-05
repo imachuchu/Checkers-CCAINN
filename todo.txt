@@ -1,0 +1,3 @@
+1. Fix evolver to produce bell curve values - general
+2. Move generator - 3/8
+3. Alpha/beta pruning - 3/8

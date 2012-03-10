@@ -18,20 +18,28 @@ class board():
 		"""Generates a random board
 		NOTE: The generated board may not be an actually valid board (one that could be actually played to)
 		"""
-		self.location = []
 		choices = ['e', 'r', 'b', 'R', 'B']
-		for x in xrange(32):
-			self.location.append(random.choice(choices))
+		self.location = [random.choice(choices) for x in range(32)]
 
-	def jumpsPresent(self,color):
+	def jumpsPresent(self,color): # !NOTE: Only works for black currently!
 		"""Returns the empty set if no jumps, else a list of pieces that can jump"""
+		jumpList = set({})
 		for square,location in zip(self.location,range(32)):
 			if spot is not ('e' or 'r') and location <= 24: # So we can go down-left and down-right
 				if (location % 4 is not 0) and (self.location[location+7] is 'e'): #Down-left jump
 					if location % 8 < 4: #Odd numbered row
-						if color = "red"
-						otherPiece = 
-						if 
+						if self.location[location+4] is ('r' or 'R'):
+							jumpList.add(location)
+					else:
+						if self.location[location+3] is ('r' or 'R'):
+							jumpList.add(location)
+				if (location % 4 is not 3) and (self.location[location+9] is 'e'): #Down-right jump
+					if location % 8 < 4: #Odd numbered row
+						if self.location[location+5] is ('r' or 'R'):
+							jumpList.add(location)
+						if self.location[location+4] is ('r' or 'R'):
+							jumpList.add(location)
+
 
 
 

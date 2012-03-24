@@ -29,7 +29,7 @@ class board():
 		"""Returns a set of future boards generatable from the current board. If none returns an empty set"""
 		jumpBoards = set({})
 		for square,location in zip(self.location,range(32)):
-			if spot is not ('e' or 'r') and location <= 24: # So we can go down-left and down-right
+			if spot is not ('e' or 'r') and location <= 23: # So we can go down-left and down-right
 				if (location % 4 is not 0) and (self.location[location+7] is 'e'): #Down-left jump
 					if location % 8 < 4: #Odd numbered row
 						if self.location[location+4] is ('r' or 'R'):
@@ -44,7 +44,7 @@ class board():
 							newBoard = copy.copy(self)
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
-								jum[Boards = board | tempSet
+								jumpBoards = board | tempSet
 							else:
 								jumpBoards.add(newBoard)
 				if (location % 4 is not 3) and (self.location[location+9] is 'e'): #Down-right jump
@@ -101,3 +101,20 @@ class board():
 		if jumpBoards or jumpFound: #We've found at least one jump
 			return jumpBoards
 
+		#No jumps, do the moves
+		moveList = set()
+		if spot is not ('e' or 'r') and location <= 27: # So we can go down-left and down-right
+			if location % 4 is not 0: #Down-left move
+				if location % 8 < 4: #Odd numbered row
+					if self.location[location+4] is ('e'):
+						moveList.add(copy.copy(self))
+				else:
+					if self.location[location+3] is ('e'):
+						moveList.add(copy.copy(self))
+			if location % 4 is not 3: #Down-right jump
+				if location % 8 < 4: #Odd numbered row
+					if self.location[location+5] is ('e'):
+						moveList.add(copy.copy(self))
+				else:
+					if self.location[location+4] is ('e'):
+						moveList(copy.copy(self))

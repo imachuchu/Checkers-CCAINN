@@ -111,10 +111,25 @@ class board():
 				else:
 					if self.location[location+3] is ('e'):
 						moveList.add(copy.copy(self))
-			if location % 4 is not 3: #Down-right jump
+			if location % 4 is not 3: #Down-right move
 				if location % 8 < 4: #Odd numbered row
 					if self.location[location+5] is ('e'):
 						moveList.add(copy.copy(self))
 				else:
 					if self.location[location+4] is ('e'):
+						moveList(copy.copy(self))
+		if spot is not ('e' or 'b') and location >= 7: # So we can go up-left and up-right
+			if location % 4 is not 0: #Up-left move
+				if location % 8 < 4: #Odd numbered row
+					if self.location[location-4] is ('e'):
+						moveList.add(copy.copy(self))
+				else:
+					if self.location[location-5] is ('e'):
+						moveList.add(copy.copy(self))
+			if location % 4 is not 3: #Up-right move
+				if location % 8 < 4: #Odd numbered row
+					if self.location[location-3] is ('e'):
+						moveList.add(copy.copy(self))
+				else:
+					if self.location[location-4] is ('e'):
 						moveList(copy.copy(self))

@@ -14,7 +14,7 @@ class board():
 	def __init__(self):
 		"""Creates a starter board
 		
-		The board is counted from 0 in the upper right, with black on top, and each movable square represented by a character
+		The board is counted from 0 in the upper left, with black on top, and each movable square represented by a character
 		"""
 		self.location = list("bbbbbbbbbbbb" + "eeeeeeee" + "rrrrrrrrrrrr")
 
@@ -34,6 +34,9 @@ class board():
 					if location % 8 < 4: #Odd numbered row
 						if self.location[location+4] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location+7] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location+4] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -42,6 +45,9 @@ class board():
 					else:
 						if self.location[location+3] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location+7] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location+3] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -52,12 +58,18 @@ class board():
 						if self.location[location+5] is ('r' or 'R'):
 							newBoard = copy.copy(self)
 							tempSet = newBoard.genMoves(color, jumpFound=True)
+							newBoard[location+9] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location+5] = 'e'
 							if tempSet:
 								jumpBoards = board | tempSet
 							else:
 								jumpBoards.add(newBoard)
 						if self.location[location+4] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location+9] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location+4] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -69,6 +81,9 @@ class board():
 					if location % 8 < 4: #Odd numbered row
 						if self.location[location-4] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location-7] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location-4] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -77,6 +92,9 @@ class board():
 					else:
 						if self.location[location-5] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location-7] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location-5] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -86,6 +104,9 @@ class board():
 					if location % 8 < 4: #Odd numbered row
 						if self.location[location-3] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location-9] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location-3] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -93,6 +114,9 @@ class board():
 								jumpBoards.add(newBoard)
 						if self.location[location-4] is ('r' or 'R'):
 							newBoard = copy.copy(self)
+							newBoard[location-9] = newBoard[location]
+							newBoard[location] = 'e'
+							newBoard[location-4] = 'e'
 							tempSet = newBoard.genMoves(color, jumpFound=True)
 							if tempSet:
 								jumpBoards = board | tempSet
@@ -107,29 +131,54 @@ class board():
 			if location % 4 is not 0: #Down-left move
 				if location % 8 < 4: #Odd numbered row
 					if self.location[location+4] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location+4] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 				else:
 					if self.location[location+3] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location+3] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 			if location % 4 is not 3: #Down-right move
 				if location % 8 < 4: #Odd numbered row
 					if self.location[location+5] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location+5] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 				else:
 					if self.location[location+4] is ('e'):
-						moveList(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location+4] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 		if spot is not ('e' or 'b') and location >= 7: # So we can go up-left and up-right
 			if location % 4 is not 0: #Up-left move
 				if location % 8 < 4: #Odd numbered row
 					if self.location[location-4] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location-4] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 				else:
 					if self.location[location-5] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location-5] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 			if location % 4 is not 3: #Up-right move
 				if location % 8 < 4: #Odd numbered row
 					if self.location[location-3] is ('e'):
-						moveList.add(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location-3] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
 				else:
 					if self.location[location-4] is ('e'):
-						moveList(copy.copy(self))
+						newBoard = copy.copy(self)
+						newBoard[location-4] = newBoard[location]
+						newBoard[location] = 'e'
+						moveList.add(newBoard)
+		return moveList
